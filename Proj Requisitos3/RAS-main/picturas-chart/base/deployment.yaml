@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: EXAMPLE
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      name: EXAMPLE
+  template:
+    metadata:
+      labels:
+        name: EXAMPLE
+    spec:
+      containers:
+        - name: EXAMPLE
+          image: "{{ .Values.imageRegistry }}EXAMPLE:{{ .Values.imageTag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: 3000
+            - containerPort: 9121
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10

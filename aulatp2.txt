@@ -1,0 +1,29 @@
+Which is the type of elements appropriate to be included in a requirements document?
+1. design restrictions ---------------------
+2. product delivery constraints
+3. functionalities to make available -------
+4. performance characteristics -------------
+
+hich is the type of requirements that should be included in a requirements document?
+1. functional requirements ------------
+2. maintenance requirements -----------
+3. project requirements 
+4. performance requirements -----------
+
+Which is the element that must be included in a requirements document?
+1. acceptance/validation procedures 
+2. delivery plans
+3. quality atributes ------------------
+4. activities to guarantee the quality
+
+Which of the following arguments is the most solid/strong to justify the specification of the non-functional requirements of a system?
+1. The non-functional requirements should only be considered in development contexts subject to tight restrictions (resources, budget, or deadlines).
+2. The non-functional requirements are only external characteristics of the system and can be obtained later.
+3. If a functionality is present in the system, the non-functional requirements determine how usable and useful it is. -------
+4. The non-functional requirements take less time to specify than the functional requirements
+
+Consider the following requirement:
+The system should be easy to use for trained persons.
+1. Classify this requirement with respect to its type. ----- Não Funcional
+2. Is this requirement verifiable? Justify. ---------------- Não, não se pode verificar que é de fácil utilização
+3. Rewrite the requirement so that it becomes measurable. -- "O sistema deve permitir que usuários treinados (que tenham realizado a sessão de treino de 1hora) completem tarefas X, Y, Z em menos de 20 minutos."

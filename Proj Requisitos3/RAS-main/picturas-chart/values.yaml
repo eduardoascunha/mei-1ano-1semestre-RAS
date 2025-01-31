@@ -1,0 +1,245 @@
+# General
+nameOverride: ""
+fullnameOverride: ""
+
+# Images
+imageRegistry: ""
+imagePullPolicy: Never
+imageTag: latest
+
+# Production Settings
+production:
+  enabled: false
+  autoscaling:
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+# General settings
+frontend_url: "http://192.168.49.2"
+
+filters:
+  - auto-adjust-filter
+  - binarization-filter
+  - borders-add-filter
+  - brightness-filter
+  - contrast-filter
+  - cropping-filter
+  - grayscale-filter
+#  - object-identification-filter
+  - ocr-filter
+  - person-count-filter
+#  - remove-bg-filter
+  - resize-filter
+  - rotate-filter
+  - saturation-filter
+  - smart-crop-filter
+  - watermark-filter
+
+# Miscellaneous
+auth_jwt_secret: "auth-secret"
+refresh_jwt_secret: "refresh-secret"
+validate_jwt_secret: "validate-secret"
+
+filter_output_exchange: "filters-exchange"
+filter_output_routing_key: "results"
+notification_queue: "notification-output"
+
+# Dependencies Configuration
+
+rabbitmq:
+  fullnameOverride: rabbitmq
+  auth:
+    username: "rabbitmq-user"
+    password: "rabbitmq-password"
+  service:
+    ports:
+      amqp: 5672
+  persistence:
+    enabled: false
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+rate-limiter-redis:
+  fullnameOverride: rate-limiter-redis
+  architecture: standalone
+  auth:
+    enabled: yes
+    password: "rate-limit-password"
+  master:
+    persistence:
+      enabled: false
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+ws-redis:
+  fullnameOverride: ws-redis
+  architecture: standalone
+  auth:
+    enabled: yes
+    password: "ws-password"
+  master:
+    persistence:
+      enabled: false
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+filter-redis:
+  fullnameOverride: filter-redis
+  architecture: standalone
+  auth:
+    enabled: yes
+    password: "filter-password"
+  master:
+    persistence:
+      enabled: false
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+users-ms-db:
+  fullnameOverride: users-ms-db
+  auth:
+    rootUser: root
+    rootPassword: users-ms-db-password
+  passwordUpdateJob:
+    enabled: true
+  containerPorts:
+    mongodb: 27017
+  persistence:
+    enabled: false
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+projects-ms-db:
+  fullnameOverride: projects-ms-db
+  architecture: replicaset
+  replicaSetName: replika
+  replicaCount: 1
+  auth:
+    rootUser: root
+    rootPassword: projects-ms-db-password
+  passwordUpdateJob:
+    enabled: true
+  containerPorts:
+    mongodb: 27017
+  persistence:
+    enabled: false
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+subscriptions-ms-db:
+  fullnameOverride: subscriptions-ms-db
+  auth:
+    rootUser: root
+    rootPassword: subscriptions-ms-db-password
+  passwordUpdateJob:
+    enabled: true
+  containerPorts:
+    mongodb: 27017
+  persistence:
+    enabled: false
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false
+
+stripe_private_key: "stripe-private-key"
+stripe_webhook_secret: "stripe-webhook-key"
+# webhook:
+# - invoice.payment_succeeded
+# - invoice.payment_failed
+# - customer.subscription.deleted
+
+s3_endpoint: "minio" # static from dev
+s3_port: 9000 # static from dev
+s3_username: "s3-username" # access
+s3_password: "s3-password" # secret
+s3_profile_picture_bucket: "profile"
+s3_picture_bucket: "picture"
+s3_temp_bucket: "temp"
+
+nfs_enabled: false
+nfs_server: '127.0.0.1'
+
+filter_shared_dir: /mnt/nfs
+
+email_hostname: "mailhog-node"
+email_port: 1025
+email_email: "no-reply@picturas.pt"
+email_password: "email-password"
+
+# Monitoring Dependencies Configuration
+kube-prometheus:
+  prometheus:
+    enabled: true
+
+grafana:
+  admin:
+    password: admin
+  persistence:
+    enabled: false
+  datasources:
+    secretDefinition:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          orgId: 1
+          url: http://prometheus-operated:9090
+          version: 1
+          editable: false
+          isDefault: true
+        - name: Alertmanager
+          uid: alertmanager
+          type: alertmanager
+          jsonData:
+            implementation: "prometheus"
+          access: proxy
+          orgId: 1
+          url: http://alertmanager-operated:9093
+          version: 1
+          editable: false
+        - name: Loki
+          uid: loki
+          type: loki
+          access: proxy
+          orgId: 1
+          url: http://grafana-loki-gateway
+          version: 1
+          editable: false
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+grafana-loki:
+  fullnameOverride: grafana-loki
+  promtail:
+    enabled: true
+  ingester:
+    persistence:
+      enabled: false
+  querier:
+    persistence:
+      enabled: false
+  compactor:
+    persistence:
+      enabled: false
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true

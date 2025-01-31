@@ -1,0 +1,54 @@
+7.1 - 2
+7.2 - 1
+7.3 
+1) funcional
+2) não, "Pessoas treinadas (pessoas que frequentaram pelo menos uma aula) devem ser capazes de realizar X tarefas em menos de Y minutos."
+
+7.4 -
+
+Game console for cars:
+- video game console should be used inside a family car.
+- the console should turn off when there is no interaction from the passengers for more than 10 min.
+- the console should be put in standby mode when the driver is making a phone call (with the help of an hands-free kit)
+- the console should weight less than 2 kg
+- the price should be relatively lower then the Market mean.
+
+ 
+7.5 - 
+a) R3, gradually
+b) R1,R2,R4 -> afeta a solução, exige que haja válvulas
+c) 
+d) R3, increase gradually
+
+
+7.6 - 
+R5: The communication system can only “crash” at most once a month. - Not Clear
+"o q é um crash"
+
+R6: The system shall be easy to learn by students with minimal training. - Not Clear -> Not verifiable
+"easy (must complete 1 task in 2 minutes)... minimal training (1 session of training complete)"
+
+R7: The average delay for the users of a system to pay tolls shall be less than 15 s.
+
+R8: All users shall use the same mobile application. 
+
+R9: The maximum delay between the submission of a questionnaire and
+its confirmation must be half an hour.
+
+R10: The operator shall be able to communicate by mobile phone with the
+bus driver.
+
+
+
+7.7 - 
+R11: The truck driver shall be able to obtain instantaneous answers, if he
+provides a recognised voice command. - "instantaneaous"
+
+R12: The operator should be able to turn off the system, by unplugging
+the electrical cable. 
+
+R13: The fire extinguishing subsystem must activate when the temperature
+is over the level of normal operation. - "normal level"
+
+R14: The escalator must stop with no danger to the pedestrians, in the
+unlikely case of an unexpected fault in the controller system. - "no danger"

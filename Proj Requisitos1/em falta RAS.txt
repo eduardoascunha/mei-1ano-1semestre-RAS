@@ -1,0 +1,9 @@
+em falta RAS:
+-encadeamento de ferramentas e processamento em lote
+-modelo de negocio
+-Colocar todos os use case q fizemos (com alguma ordem; não coloquem funcionalidades básicas no meio das avançadas, por exemplo).
+-O texto dos atores no tópico 7 repete várias informações já mencionadas em tópicos anteriores (penso que não é necessário --detalhar o que cada perfil pode fazer, pois isso já está escrito).
+-fazer "use case": fazer registo
+-exel do use case para todos excepto upscaling e comprar premium
+-diagrama de sequencia: upscaling e comprar premium
+-modelo de domínio

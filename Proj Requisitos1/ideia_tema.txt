@@ -1,0 +1,20 @@
+Olá a todos! Tive uma ideia inspirada no "famoso" zoom dos filmes de investigação criminal.
+
+Imaginemos que pretendemos desenvolver uma aplicação para os investigadores da polícia utilizarem no seu trabalho, quando precisam de analisar imagens.
+
+Funcionalidades básicas:
+-Recortar imagem
+-Ampliar e reduzir imagem (zoom)
+-Rodar imagem
+-Ajustar saturação, contraste e brilho (para realçar detalhes como armas nas mãos ou outros elementos relevantes)
+-Aplicar filtros de imagem (preto e branco, sépia, etc.) para destacar pormenores específicos
+-Inserir texto (para adicionar informações como data da imagem, localização da fotografia e até mesmo o nome do suspeito)
+-Inverter cores para análise de negativos (não sei se é útil mas achei engraçado)
+
+Funcionalidades avançadas:
+-Upscaling (para fazer o "famoso" zoom dos filmes)
+-Identificação automática de objetos
+-Reconstrução de faces parcialmente ocultas (parece ser complexo, mas bastante interessante)
+-Análise de expressões faciais para deteção de emoções (parece bastante complexo, mas também seria uma funcionalidade curiosa)
+
+Digam o que acharam e, se tiverem alguma ideia para acrescentar, avisem. Partilhem as vossas ideias também para definirmos o tema final.

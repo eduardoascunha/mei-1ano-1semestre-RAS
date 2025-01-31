@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      name: api-gateway
+  template:
+    metadata:
+      labels:
+        name: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: "{{ .Values.imageRegistry }}api-gateway:{{ .Values.imageTag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: 3000
+            - containerPort: 9121
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          env:
+            - name: AUTH_JWT_SECRET
+              valueFrom:
+               secretKeyRef:
+                 name: auth-jwt-secret
+                 key: token-secret
+            - name: RATE_LIMITER_REDIS_HOST
+              value: "rate-limiter-redis-master"
+            - name: RATE_LIMITER_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rate-limiter-redis-auth-secret
+                  key: password
+            - name: FRONTEND_URL
+              value: {{ .Values.frontend_url }}
+            - name: USERS_MS
+              value: users-ms
+            - name: USERS_MS_PORT
+              value: '3000'
+            - name: SUBSCRIPTIONS_MS
+              value: subscriptions-ms
+            - name: SUBSCRIPTIONS_MS_PORT
+              value: '3000'
+            - name: PROJECTS_MS
+              value: projects-ms
+            - name: PROJECTS_MS_PORT
+              value: '3000'

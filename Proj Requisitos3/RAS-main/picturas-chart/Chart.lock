@@ -1,0 +1,33 @@
+dependencies:
+- name: rabbitmq
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.2.1
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 20.6.1
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 20.6.1
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 20.6.1
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.4.0
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.4.0
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.4.0
+- name: kube-prometheus
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.2.3
+- name: grafana
+  repository: https://charts.bitnami.com/bitnami
+  version: 11.4.2
+- name: grafana-loki
+  repository: https://charts.bitnami.com/bitnami
+  version: 4.7.1
+digest: sha256:39fc5608364aeebcc84717097f90c7626490eed0614c54e199c4b4bf09e22a46
+generated: "2025-01-16T22:00:20.613088625Z"

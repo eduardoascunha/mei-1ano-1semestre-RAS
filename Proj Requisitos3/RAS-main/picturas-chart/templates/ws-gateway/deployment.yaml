@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ws-gateway
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      name: ws-gateway
+  template:
+    metadata:
+      labels:
+        name: ws-gateway
+    spec:
+      containers:
+        - name: ws-gateway
+          image: "{{ .Values.imageRegistry }}ws-gateway:{{ .Values.imageTag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: 3000
+            - containerPort: 9113
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          env:
+            - name: RABBITMQ_HOST
+              value: rabbitmq
+            - name: RABBITMQ_PORT
+              value: {{ $.Values.rabbitmq.service.ports.amqp | quote }}
+            - name: RABBITMQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-auth-secret
+                  key: username
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-auth-secret
+                  key: password
+            - name: RABBITMQ_QUEUE
+              value: {{ .Values.filter_output_exchange }}
+            - name: NOTIFICATION_QUEUE
+              value: {{ .Values.notification_queue }}
+            - name: WS_REDIS_HOST
+              value: "ws-redis-master"
+            - name: WS_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ws-redis-auth-secret
+                  key: password
+            - name: FRONTEND_URL
+              value: {{ .Values.frontend_url }}
+            - name: AUTH_JWT_SECRET
+              valueFrom:
+               secretKeyRef:
+                 name: auth-jwt-secret
+                 key: token-secret

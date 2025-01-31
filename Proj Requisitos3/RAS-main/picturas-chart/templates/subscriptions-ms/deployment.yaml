@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subscriptions-ms
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      name: subscriptions-ms
+  template:
+    metadata:
+      labels:
+        name: subscriptions-ms
+    spec:
+      containers:
+        - name: subscriptions-ms
+          image: "{{ .Values.imageRegistry }}subscriptions-ms:{{ .Values.imageTag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: 3000
+            - containerPort: 9121
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          env:
+#            - name: STRIPE_ENDPOINT
+#              value: localstripe
+#            - name: STRIPE_ENDPOINT_PORT
+#              value: '8420'
+            - name: STRIPE_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: private-key
+            - name: STRIPE_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: webhook-secret
+            - name: SUBS_DB_HOST
+              value: 'subscriptions-ms-db'
+            - name: SUBS_DB_PORT
+              value: {{ index .Values "subscriptions-ms-db" "containerPorts" "mongodb" | quote }}
+            - name: SUBS_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: subscriptions-ms-db-secret
+                  key: username
+            - name: SUBS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: subscriptions-ms-db-secret
+                  key: password

@@ -1,0 +1,25 @@
+{
+    "extends": ["airbnb-base", "plugin:prettier/recommended"],
+    "env": {
+        "node": true,
+        "browser": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2022
+    },
+    "rules": {
+        "indent": ["error", 4],
+        "no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ],
+        "no-continue": "off",
+        "no-await-in-loop": "off",
+        "no-restricted-syntax": "off"
+    }
+}

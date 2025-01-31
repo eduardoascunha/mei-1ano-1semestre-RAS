@@ -1,0 +1,72 @@
+{{- range .Values.filters }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ . }}
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      name: {{ . }}
+  template:
+    metadata:
+      labels:
+        name: {{ . }}
+    spec:
+      containers:
+        - name: {{ . }}
+          image: "{{ $.Values.imageRegistry }}{{ . }}:{{ $.Values.imageTag }}"
+          imagePullPolicy: {{ $.Values.imagePullPolicy }}
+          env:
+            - name: RABBITMQ_HOST
+              value: rabbitmq
+            - name: RABBITMQ_PORT
+              value: {{ $.Values.rabbitmq.service.ports.amqp | quote }}
+            - name: RABBITMQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-auth-secret
+                  key: username
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-auth-secret
+                  key: password
+            - name: FILTER_OUTPUT_EXCHANGE
+              value: {{ $.Values.filter_output_exchange }}
+            - name: FILTER_OUTPUT_ROUTING_KEY
+              value: {{ $.Values.filter_output_routing_key }}
+          ports:
+            - containerPort: 3000
+            - containerPort: 9121
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 9121
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          volumeMounts:
+            - mountPath: {{ $.Values.filter_shared_dir }}
+              name: nfs-volume
+      volumes:
+        - name: nfs-volume
+          {{- if $.Values.nfs_enabled }}
+          nfs:
+            path: /pipeline
+            server: {{ $.Values.nfs_server }}
+          {{- else }}
+          hostPath:
+            path: /tmp/picturas
+          {{- end}}
+{{- end }}

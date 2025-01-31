@@ -1,0 +1,17 @@
+{
+    "name": "@picturas/filter-helper",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "generate-schemas": "node src/generate-schemas.js"
+    },
+    "main": "./src/index.js",
+    "exports": {
+        ".": "./src/index.js"
+    },
+    "dependencies": {
+        "@picturas/ms-helper": "file:../ms-helper",
+        "@picturas/schema-validation": "file:../schema-validation",
+        "amqplib": "^0.10.5"
+    }
+}

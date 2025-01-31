@@ -1,0 +1,99 @@
+Use Case
+
+
+Actors:
+
+Objetivos (Especifico do use case):
+
+Scope:
+
+Pre-Condições:
+
+Pós Condições:
+
+Primary Flow:
+
+Alternative Flow:
+
+Execeções:
+
+----//--------
+
+
+Ator Principal: Utilizadores Premium
+
+Atores Secundários: Admin
+
+Objetivo: Reconstruir faces parcialmente ocultas em imagens de cenas de crime para auxiliar na investigação.
+
+Scope: O Utilizador usa a aplicação para manipular, editar e analisar imagens de cenas de crime, identificando detalhes que possam ser relevantes para a investigação.
+
+Pré-condições: 
+O utilizador possuir estatuto premium.
+O utilizador possui imagens de cenas de crime armazenadas no seu computador.
+
+Fluxo Principal:
+1- O utilizador faz login na aplicação com as suas credenciais policiais.
+2- O utilizador carrega a imagem desejada.
+3- O sistema exibe a imagem carregada e disponibiliza ferramentas para edição e manipulação.
+4- O utilizador navega até as ferramentas avançadas e seleciona a opção "Reconstrução de Face".
+5- O utilizador identifica a face que pretende reconstruir.
+6- O utilizador revê a imagem modificada.
+7- O utilizador guarda a imagem na base de dados.
+
+Alternative Flow:
+4.1 - O investigador manipula a imagem antes da "reconstrução da face", realizando ações como recortar, ampliar, ajustar o brilho e utilizar outras funcionalidades disponíveis conforme necessário.
+6.1 - O investigador manipula a imagem depois da "reconstrução da face", realizando ações como recortar, ampliar, ajustar o brilho e utilizar outras funcionalidades disponíveis conforme necessário.
+6.2 - O utilizador adiciona anotações.
+6.3.1 - O utilizador cancela a operação, retornando à imagem anterior sem perder as alterações realizadas.
+6.3.2 - Voltar ao passo 4.
+7.1 - O utilizador transfere a imagem.
+
+Pós-condições:
+A imagem foi manipulada e analisada com sucesso.
+As alterações, incluindo a imagem reconstruída e anotações, foram salvas no sistema como cópias.
+
+Exceções:
+2.1.1 - Se a imagem não carregar corretamente, o sistema exibe uma mensagem de erro
+2.1.2 - O sistema solicita ao investigador que tente novamente.
+4.1 O sistema determina que o Utilizador não tem estatuto.
+5.1 Se a reconstrução facial não puder ser realizada devido à falta de informações visuais suficientes, o sistema sugere continuar com a imagem original.
+
+
+-- // --
+
+Ator Principal: Utilizadores Registados
+
+Atores Secundários: 
+
+Objetivo: Permitir aos utilizadores registados subscreverem o serviço premium.
+
+Scope: A aquisição do plano premium.
+
+Pré-condições: 
+O utilizador estar registado na aplicação.
+
+Fluxo Principal:
+1 - O utilizador seleciona a opção "obter premium".
+2 - O sistema exibe o preço do pacote premium.
+3 - O sistema exibe os métodos de pagamento disponíveis.
+4 - O utilizador escolhe a opção Multi-banco.
+5 - O sistema fornece Entidade, Referência e o valor a pagar pelo plano.
+6 - O utilizador efetua o pagamento na sua conta.
+7 - O sistema confirma o pagamento.
+
+
+Alternative Flow:
+4.1.1 - O utilizador escolhe a opção MBWAY.
+4.1.2 - O sistema pede o numero de telemovel do cliente.
+4.1.3 - O sistema envia pedido de pagamento para o MBWAY associado ao numero recebido.
+4.1.4 - Voltar ao passo 6.
+
+Pós-condições:
+O utilizador possui estatuto premium.
+
+Exceções:
+1.1 O utilizador já tem o plano premium.
+7.1 O pagamento falha.
+
+
